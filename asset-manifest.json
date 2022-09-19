@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/daap/static/css/main.64e535d0.css",
+    "main.js": "/daap/static/js/main.c42f6918.js",
+    "static/js/787.8ecd5289.chunk.js": "/daap/static/js/787.8ecd5289.chunk.js",
+    "static/media/logo.png": "/daap/static/media/logo.4764d5b602aed704dc6b.png",
+    "index.html": "/daap/index.html",
+    "main.64e535d0.css.map": "/daap/static/css/main.64e535d0.css.map",
+    "main.c42f6918.js.map": "/daap/static/js/main.c42f6918.js.map",
+    "787.8ecd5289.chunk.js.map": "/daap/static/js/787.8ecd5289.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64e535d0.css",
+    "static/js/main.c42f6918.js"
+  ]
+}
