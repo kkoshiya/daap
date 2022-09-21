@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Row, Form, Button, Card, ListGroup } from 'react-bootstrap'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
-import { Buffer } from 'buffer'
+import { Buffer } from 'buffer';
+import logo from './logo.png';
 
 const ipfsClient = require('ipfs-http-client');
 
@@ -23,7 +24,7 @@ const client = ipfsClient.create({
 });
 
 
-const Home = ({ contract }) => {
+const Home = ({ contract, resumeContract }) => {
     const [posts, setPosts] = useState('')
     const [hasProfile, setHasProfile] = useState(false)
     const [post, setPost] = useState('')
@@ -96,6 +97,11 @@ const Home = ({ contract }) => {
         await (await contract.tipPostOwner(post.id, { value: ethers.utils.parseEther("0.1") })).wait()
         loadPosts()
     }
+
+    const mintResume = async () => {
+        await (await resumeContract.mint("https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ")).wait()
+    }
+
     if (loading) return (
         <div className='text-center'>
             <main style={{ padding: "1rem 0" }}>
@@ -104,7 +110,21 @@ const Home = ({ contract }) => {
         </div>
     )
     return (
-        <div className="container-fluid mt-5">
+        <div >
+
+            <div className='background'>
+                <div className="text-center">
+                    <h2>Welcome to Home Page</h2>
+                    <Button onClick={mintResume} >
+                        Mint Resume    
+                    </Button> 
+                </div>
+                <br />
+            </div>
+
+
+
+
             {hasProfile ?
                 (<div className="row">
                     <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>

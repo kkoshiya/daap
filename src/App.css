@@ -1,0 +1,15 @@
+.logo {
+    border-radius: 50%;
+  }
+
+.nav-bar {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+
+.background {
+  background-image: url('./images/space.png')
+}
+

@@ -49,13 +49,25 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
     }
 
     const createNFT = async () => {
-        if (!image || !price || !name || !description) return
+        if (!image || !price|| !name || !description) return
         try { 
             const result = await client.add(JSON.stringify({image, price, name, description}))
             mintThenList(result)
         } catch(error) {
             console.log("ipfs uri upload error: ", error)
         }
+    }
+
+    const simpleMint = async () => {
+        if (!image || !name || !description) return
+        try { 
+            const result = await client.add(JSON.stringify({image, price, name, description}))
+            const uri = `https://infura-ipfs.io/ipfs/${result.path}`;
+            await(await nftContract.mint(uri)).wait()
+            
+        } catch(error) {
+            console.log("ipfs uri upload error: ", error)
+        }  
     }
 
     const mintThenList = async (result) => {
@@ -84,12 +96,9 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
     const mintResume = async () => {
         await (await resumeContract.mint("https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ")).wait()
     }
+
     const mintNFT = async (image) => {
         await (await resumeContract.mint(image)).wait()
-    }
-
-    const approve = async () => {
-        await (await resumeContract.setApprovalForAll("0xAE3C48645436fa35D951e5314689cEcdC10ef9F3",true))
     }
 
     if (loading) return (
@@ -102,6 +111,12 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
     )
     return (
         <div className="container-fluid mt-5">
+            <div >
+                <h1 className='cover-text'>Welcome to the Mint Station AKA The Room</h1>
+            </div>
+
+
+
             <div className="row">
                 <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>
                 <div className="content mx-auto">
@@ -115,6 +130,15 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
                     <Form.Control onChange={(e) => setName(e.target.value)} size="lg" required type="text" placeholder="Name" />
                     <Form.Control onChange={(e) => setDescription(e.target.value)} size="lg" required as="textarea" placeholder="Description" />
                     <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in ETH" />
+                    <div className="d-grid px-0">
+                        <Button onClick={simpleMint} variant="primary" size="lg">
+                            Create NFT 
+                        </Button>
+                    </div>
+                    <div className="d-grid px-0">
+                        or
+                    </div>
+                    
                     <div className="d-grid px-0">
                         <Button onClick={createNFT} variant="primary" size="lg">
                             Create & List NFT!
@@ -141,11 +165,7 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
                     Mint Resume    
                 </Button> 
             </div>
-            <div >
-                {/* <Button onClick={approve}>
-                    approve    
-                </Button>  */}
-            </div>
+
 
 
 

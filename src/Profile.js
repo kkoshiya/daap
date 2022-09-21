@@ -24,12 +24,15 @@ const client = ipfsClient.create({
 
 
 
-const Profile = ({ contract }) => {
+const Profile = ({ contract, marketContract, nftContract }) => {
     const [profile, setProfile] = useState('')
     const [nfts, setNfts] = useState('')
+    const [nfts2, setNfts2] = useState('')
     const [avatar, setAvatar] = useState(null)
     const [username, setUsername] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [price, setPrice] = useState(null);
+
     
     const loadMyNFTs = async () => {
         // Get users nft ids
@@ -49,6 +52,23 @@ const Profile = ({ contract }) => {
         }))
         setNfts(nfts)
         getProfile(nfts)
+    }
+
+    const loadNfts = async () => {
+
+        const results = await nftContract.getMyNfts();
+        let nfts = await Promise.all(results.map(async i => {
+            const uri = await nftContract.tokenURI(i);
+            const response = await fetch(uri);
+            const metadata = await response.json()
+            return ({
+                id: i,
+                image: metadata.image,
+                name: metadata.name,
+                description: metadata.description
+            })
+        }))
+        setNfts2(nfts)
     }
 
     const getProfile = async (nfts) => {
@@ -86,9 +106,19 @@ const Profile = ({ contract }) => {
         await (await contract.setProfile(nft.id)).wait()
         getProfile(nfts)
     }
+
+    const list = async (nft) => {
+        const id = nft.id;
+        await(await nftContract.setApprovalForAll(marketContract.address, true)).wait()
+        // add nft to marketplace
+        const listingPrice = ethers.utils.parseEther(price.toString())
+        await(await marketContract.makeItem(nftContract.address, id, listingPrice)).wait()
+    }
+
     useEffect(() => {
         if (!nfts) {
-            loadMyNFTs()
+            loadMyNFTs();
+            loadNfts()
         }
     })
     if (loading) return (
@@ -149,6 +179,34 @@ const Profile = ({ contract }) => {
                     })}
                 </Row>
             </div>
+
+            <div className="px-5 container">
+                <Row xs={1} md={2} lg={4} className="g-4 py-5">
+                    {nfts2.map((nft, idx) => {
+                        if (nft.id === profile.id) return
+                        return (
+                            <Col key={idx} className="overflow-hidden">
+                                <Card>
+                                    <Card.Img variant="top" src={nft.image} />
+                                    <Card.Body color="secondary">
+                                        <Card.Title>{nft.name}</Card.Title>
+                                    </Card.Body>
+                                    <Card.Footer>
+                                        <div className='d-grid'>
+                                            <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in ETH" />
+                                            <Button onClick={() => list(nft)} variant="primary" size="lg">
+                                                List on Market
+                                            </Button>
+                                        </div>
+                                    </Card.Footer>
+                                </Card>
+                            </Col>
+                        )
+                    })}
+                </Row>
+            </div>
+
+
         </div>
     );
 }

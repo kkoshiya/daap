@@ -23,6 +23,7 @@ import Home from './Home.js'
 import Profile from './Profile.js'
 import Room from './Room.js'
 import Market from './Market.js'
+import Blog from './Blog';
 import './App.css';
 
 function App() {
@@ -74,12 +75,13 @@ function App() {
     <HashRouter>
       <div className="App">
         <>
-          <Navbar expand="lg" bg="secondary" variant="dark">
+        <div className="nav-bar">
+          <Navbar expand="lg" bg="secondary" variant="dark" >
             <Container>
-              {/* <Navbar.Brand href="http://www.dappuniversity.com/bootcamp">
-                <img src={logo} width="40" height="40" className="" alt="" />
-                &nbsp; Decentratwitter
-              </Navbar.Brand> */}
+              <Navbar.Brand href="">
+                <img src={logo} width="40" height="40" className="logo" alt="" />
+                &nbsp; KyleVerse
+              </Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
@@ -87,6 +89,7 @@ function App() {
                   <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                   <Nav.Link as={Link} to="/room">Room</Nav.Link>
                   <Nav.Link as={Link} to="/market">Market</Nav.Link>
+                  <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
                 </Nav>
                 <Nav>
                   {account ? (
@@ -107,6 +110,7 @@ function App() {
               </Navbar.Collapse>
             </Container>
           </Navbar>
+        </div>
         </>
         <div>
           {loading ? (
@@ -117,16 +121,19 @@ function App() {
           ) : (
             <Routes>
               <Route path="/" element={
-                <Home contract={contract} />
+                <Home contract={contract} resumeContract={resumeContract} />
               } />
               <Route path="/profile" element={
-                <Profile contract={contract} />
+                <Profile contract={contract} marketContract={marketContract} nftContract={nftContract} />
               } />
               <Route path="/room" element={
                 <Room contract={contract} resumeContract={resumeContract} marketContract={marketContract} nftContract={nftContract} />
               } />
               <Route path="/market" element={
                 <Market contract={contract} resumeContract={resumeContract} marketContract={marketContract} nftContract={nftContract} />
+              } />
+              <Route path="/Blog" element={
+                <Blog  />
               } />
             </Routes>
           )}
