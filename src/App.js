@@ -53,13 +53,16 @@ function App() {
     loadContract(signer)
   }
 
-
+  useEffect(() => {
+    //so you don't need to connect each time you refresh
+    web3Handler();
+  })
 
   const loadContract = async (signer) => {
 
     // Get deployed copy of Decentratwitter contract
     //const contract = new ethers.Contract(DecentratwitterAddress.address, DecentratwitterAbi.abi, signer)
-    const contract = new ethers.Contract(DecentratwitterAddress.address, DecentratwitterAbi, signer)
+    //const contract = new ethers.Contract(DecentratwitterAddress.address, DecentratwitterAbi, signer)
     const resumeContract = new ethers.Contract(ResumeAddress.address, ResumeAbi, signer)
     const marketContract = new ethers.Contract(MarketAddress.address, MarketAbi, signer)
     const nftContract = new ethers.Contract(NftAddress.address, NftAbi, signer)
@@ -112,7 +115,7 @@ function App() {
           </Navbar>
         </div>
         </>
-        <div>
+        <div className="app-body">
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
               <Spinner animation="border" style={{ display: 'flex' }} />
@@ -121,16 +124,16 @@ function App() {
           ) : (
             <Routes>
               <Route path="/" element={
-                <Home contract={contract} resumeContract={resumeContract} />
+                <Home resumeContract={resumeContract} />
               } />
               <Route path="/profile" element={
-                <Profile contract={contract} marketContract={marketContract} nftContract={nftContract} />
+                <Profile marketContract={marketContract} nftContract={nftContract} />
               } />
               <Route path="/room" element={
-                <Room contract={contract} resumeContract={resumeContract} marketContract={marketContract} nftContract={nftContract} />
+                <Room resumeContract={resumeContract} marketContract={marketContract} nftContract={nftContract} />
               } />
               <Route path="/market" element={
-                <Market contract={contract} resumeContract={resumeContract} marketContract={marketContract} nftContract={nftContract} />
+                <Market resumeContract={resumeContract} marketContract={marketContract} nftContract={nftContract} />
               } />
               <Route path="/Blog" element={
                 <Blog  />
@@ -139,6 +142,7 @@ function App() {
           )}
         </div>
       </div>
+
     </HashRouter>
 
   );

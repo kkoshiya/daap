@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Row, Form, Button, Card, ListGroup, Container } from 'react-bootstrap'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
-import { Buffer } from 'buffer'
+import { Buffer } from 'buffer';
+import './css/room.css';
 
 const ipfsClient = require('ipfs-http-client');
 
@@ -64,7 +65,7 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
             const result = await client.add(JSON.stringify({image, price, name, description}))
             const uri = `https://infura-ipfs.io/ipfs/${result.path}`;
             await(await nftContract.mint(uri)).wait()
-            
+
         } catch(error) {
             console.log("ipfs uri upload error: ", error)
         }  
@@ -111,61 +112,36 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
     )
     return (
         <div className="container-fluid mt-5">
-            <div >
-                <h1 className='cover-text'>Welcome to the Mint Station AKA The Room</h1>
+            
+            <div className='text-center'>
+                <h1 className='cover-text'>Welcome to the Mint Station</h1>
+                <br />
             </div>
 
 
 
             <div className="row">
                 <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>
-                <div className="content mx-auto">
-                    <Row className="g-4">
-                    <Form.Control
-                        type="file"
-                        required
-                        name="file"
-                        onChange={uploadToIPFS}
-                    />
-                    <Form.Control onChange={(e) => setName(e.target.value)} size="lg" required type="text" placeholder="Name" />
-                    <Form.Control onChange={(e) => setDescription(e.target.value)} size="lg" required as="textarea" placeholder="Description" />
-                    <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in ETH" />
-                    <div className="d-grid px-0">
-                        <Button onClick={simpleMint} variant="primary" size="lg">
-                            Create NFT 
-                        </Button>
+                    <div className="content mx-auto">
+                        <Row className="g-4">
+                            <Form.Control
+                                type="file"
+                                required
+                                name="file"
+                                onChange={uploadToIPFS}
+                            />
+                            <Form.Control onChange={(e) => setName(e.target.value)} size="lg" required type="text" placeholder="Name" />
+                            <Form.Control onChange={(e) => setDescription(e.target.value)} size="lg" required as="textarea" placeholder="Description" />
+                            {/* <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in ETH" /> */}
+                            <div className="d-grid px-0">
+                                <Button onClick={simpleMint} variant="primary" size="lg">
+                                    Create NFT 
+                                </Button>
+                            </div>
+                        </Row>
                     </div>
-                    <div className="d-grid px-0">
-                        or
-                    </div>
-                    
-                    <div className="d-grid px-0">
-                        <Button onClick={createNFT} variant="primary" size="lg">
-                            Create & List NFT!
-                        </Button>
-                    </div>
-                    </Row>
-                </div>
                 </main>
             </div>
-
-            <div>
-                <br />
-                
-            </div>
-
-
-
-            <div >
-                <input 
-                    type = 'text'
-
-                />
-                <Button onClick={mintResume}>
-                    Mint Resume    
-                </Button> 
-            </div>
-
 
 
 

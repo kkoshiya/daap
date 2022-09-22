@@ -1,11 +1,20 @@
+
 .logo {
     border-radius: 50%;
   }
 
+.top {
+  position: fixed;
+}
+
 .nav-bar {
-  position: relative;
+  position: fixed;
   width: 100%;
   z-index: 1;
+}
+
+.app-body {
+  padding-top: 50px;
 }
 
 

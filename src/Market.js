@@ -61,31 +61,22 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
     }
 
     useEffect(() => {
+        console.log('market Load')
         loadMarketplaceItems()
     }, [])
-
-    const mintResume = async () => {
-        await (await resumeContract.mint("https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ")).wait()
-    }
-    const mintNFT = async (image) => {
-        await (await resumeContract.mint(image)).wait()
-    }
-
-    const approve = async () => {
-        await (await resumeContract.setApprovalForAll("0xAE3C48645436fa35D951e5314689cEcdC10ef9F3",true))
-    }
 
     if (loading) return (
         <div className='text-center'>
             <main style={{ padding: "1rem 0" }}>
+                <br />
                 <h2>Loading...</h2>
                 <h2>Wait a few seconds and refresh if you want</h2>
             </main>
         </div>
     )
+
     return (
         <div className="container-fluid mt-5">
-
             <div className='flex justify-center'>
                 {items.length > 0 ?
                     <div className='px-5 container'>
@@ -101,10 +92,12 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
                                             </Card.Text>
                                         </Card.Body>
                                         <Card.Footer>
-                                            <div className='d-grid'>
-                                            <Button onClick={() => buyMarketItem(item)} variant="primary" size="lg">
-                                                Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
-                                            </Button>
+                                            <div>
+                                                <div className='d-grid'>
+                                                    <Button onClick={() => buyMarketItem(item)} variant="primary" size="lg">
+                                                        Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
+                                                    </Button>
+                                                </div>
                                             </div>
                                         </Card.Footer>
                                     </Card>

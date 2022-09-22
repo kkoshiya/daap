@@ -7,6 +7,7 @@ const Blog = () => {
         <div>
             <Container>
                 <br />
+                <br />
                 <Row className="justify-content-md-center">
                     <Col xs={4}></Col>
                     <Col xs={6}>
@@ -17,6 +18,13 @@ const Blog = () => {
                     <Col xs={2}></Col>
                 </Row>
             </Container>
+
+            <div className='text-center'>
+                <div>
+                    <a target = "_blank" href="https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ">Litterally first blog post is me Resume</a>
+                </div>
+            </div>
+
         </div>
     )
 
