@@ -24,6 +24,11 @@ const Blog = () => {
                     <a target = "_blank" href="https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ">Litterally first blog post is me Resume</a>
                 </div>
             </div>
+            <div className='text-center'>
+                <div>
+                    <a target = "_blank" href="https://ipfs.io/ipfs/QmYcut8J5DfULMYkLJRdquZjerEhs7VcZfVFPjSoL61WxH">Buying Things: 9/22/22</a>
+                </div>
+            </div>
 
         </div>
     )

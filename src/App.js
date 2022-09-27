@@ -16,7 +16,9 @@ import ResumeAbi from './contractsData/resume.json'
 import MarketAddress from './contractsData/market-address.json'
 import MarketAbi from './contractsData/market.json'
 import NftAddress from './contractsData/nft-address.json'
-import NftAbi from './contractsData/nft.json'
+import NftAbi from './contractsData/nft.json';
+import LandAddress from './contractsData/land-address.json';
+import LandAbi from './contractsData/land.json';
 import { Spinner, Navbar, Nav, Button, Container } from 'react-bootstrap'
 import logo from './logo.png'
 import Home from './Home.js'
@@ -24,6 +26,7 @@ import Profile from './Profile.js'
 import Room from './Room.js'
 import Market from './Market.js'
 import Blog from './Blog';
+import Land from './Land'
 import './App.css';
 
 function App() {
@@ -33,6 +36,7 @@ function App() {
   const [resumeContract, setResumeContract] = useState({});
   const [marketContract, setMarketContract] = useState({});
   const [nftContract, setNftContract] = useState({});
+  const [landContract, setLandContract] = useState({});
 
   const web3Handler = async () => {
     let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -66,12 +70,14 @@ function App() {
     const resumeContract = new ethers.Contract(ResumeAddress.address, ResumeAbi, signer)
     const marketContract = new ethers.Contract(MarketAddress.address, MarketAbi, signer)
     const nftContract = new ethers.Contract(NftAddress.address, NftAbi, signer)
+    const landContract = new ethers.Contract(LandAddress.address, LandAbi, signer)
 
 
     setContract(contract)
     setResumeContract(resumeContract)
     setMarketContract(marketContract)
     setNftContract(nftContract)
+    setLandContract(landContract)
     setLoading(false)
   }
   return (
@@ -81,7 +87,7 @@ function App() {
         <div className="nav-bar">
           <Navbar expand="lg" bg="secondary" variant="dark" >
             <Container>
-              <Navbar.Brand href="">
+              <Navbar.Brand href="http://www.kylekoshiyama.me" target="_blank">
                 <img src={logo} width="40" height="40" className="logo" alt="" />
                 &nbsp; KyleVerse
               </Navbar.Brand>
@@ -90,9 +96,10 @@ function App() {
                 <Nav className="me-auto">
                   <Nav.Link as={Link} to="/">Home</Nav.Link>
                   <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-                  <Nav.Link as={Link} to="/room">Room</Nav.Link>
+                  <Nav.Link as={Link} to="/room">Mint</Nav.Link>
                   <Nav.Link as={Link} to="/market">Market</Nav.Link>
                   <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
+                  <Nav.Link as={Link} to="/land">Land</Nav.Link>
                 </Nav>
                 <Nav>
                   {account ? (
@@ -137,6 +144,9 @@ function App() {
               } />
               <Route path="/Blog" element={
                 <Blog  />
+              } />
+              <Route path="/land" element={
+                <Land nftContract={nftContract} landContract={landContract} />
               } />
             </Routes>
           )}

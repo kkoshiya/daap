@@ -64,8 +64,8 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
         try { 
             const result = await client.add(JSON.stringify({image, price, name, description}))
             const uri = `https://infura-ipfs.io/ipfs/${result.path}`;
+            console.log(uri)
             await(await nftContract.mint(uri)).wait()
-
         } catch(error) {
             console.log("ipfs uri upload error: ", error)
         }  
@@ -114,7 +114,7 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
         <div className="container-fluid mt-5">
             
             <div className='text-center'>
-                <h1 className='cover-text'>Welcome to the Mint Station</h1>
+                <h1 >Welcome to the Mint Station</h1>
                 <br />
             </div>
 
@@ -148,7 +148,15 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
             <p>&nbsp;</p>
             <hr />
             <p className="my-auto">&nbsp;</p>
-
+            <div>
+            <div className='text-center'>
+                <h5>
+                    For some reason sometimes MetaMask get's stuck when you call press the button. If you 
+                    minimize the pop up, and reopen it, it usually fixes the bug.
+                </h5>
+                <br />
+            </div>
+            </div>
 
         </div >
     );

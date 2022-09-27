@@ -27,39 +27,22 @@ const client = ipfsClient.create({
 
 const Profile = ({ marketContract, nftContract }) => {
     const [profile, setProfile] = useState('')
-    const [nfts, setNfts] = useState('')
+    const [nfts, setNfts] = useState([])
     const [nfts2, setNfts2] = useState([])
     const [avatar, setAvatar] = useState(null)
     const [username, setUsername] = useState('')
     const [loading, setLoading] = useState(true);
     const [price, setPrice] = useState(null);
     const [approved, setApproval] = useState(false);
-    const [account, setAccount] = useState(null)
+    const [account, setAccount] = useState(null);
+    const [bio, setbio] = useState('');
 
-
-    
-    // const loadMyNFTs = async () => {
-    //     // Get users nft ids
-    //     const results = await contract.getMyNfts();
-    //     // Fetch metadata of each nft and add that to nft object.
-    //     let nfts = await Promise.all(results.map(async i => {
-    //         // get uri url of nft
-    //         const uri = await contract.tokenURI(i)
-    //         // fetch nft metadata
-    //         const response = await fetch(uri)
-    //         const metadata = await response.json()
-    //         return ({
-    //             id: i,
-    //             username: metadata.username,
-    //             avatar: metadata.avatar
-    //         })
-    //     }))
-    //     setNfts(nfts)
-    //     getProfile(nfts)
-    // }
 
     const loadNfts = async () => {
 
+        let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        //setAccount(accounts[0]);
+        const id = await nftContract.profiles(accounts[0]);
         const results = await nftContract.getMyNfts();
         let nfts = await Promise.all(results.map(async i => {
             const uri = await nftContract.tokenURI(i);
@@ -72,16 +55,25 @@ const Profile = ({ marketContract, nftContract }) => {
                 description: metadata.description
             })
         }))
-        setNfts2(nfts)
+        await setNfts(nfts);
+        const profileId = await nftContract.profiles(accounts[0])
+        const profile = nfts.find((i) => i.id.toString() === profileId.toString())
+        setProfile(profile);
     }
 
-    // const getProfile = async (nfts) => {
-    //     const address = await nftContract.signer.getAddress()
-    //     const id = await nftContract.profiles(address)
-    //     const profile = nfts.find((i) => i.id.toString() === id.toString())
-    //     setProfile(profile)
-    //     setLoading(false)
-    // }
+    const getProfile = async () => {
+        //const address = await nftContract.signer.getAddress()
+        console.log('trying to get profile')
+        let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        //setAccount(accounts[0]);
+        const id = await nftContract.profiles(accounts[0])
+        const profile = nfts.find((i) => i.id.toString() === id.toString())
+        setProfile(profile);
+        //console.log(profile.name)
+    }
+
+
+
     const uploadToIPFS = async (event) => {
         event.preventDefault()
         const file = event.target.files[0]
@@ -94,23 +86,16 @@ const Profile = ({ marketContract, nftContract }) => {
             }
         }
     }
-    // const mintProfile = async (event) => {
-    //     if (!avatar || !username) return
-    //     try {
-    //         const result = await client.add(JSON.stringify({ avatar, username }))
-    //         setLoading(true)
-    //         await (await contract.mint(`https://infura-ipfs.io/ipfs/${result.path}`)).wait()
-    //         loadMyNFTs()
-    //     } catch (error) {
-    //         window.alert("ipfs uri upload error: ", error)
-    //     }
-    // }
 
-    // const switchProfile = async (nft) => {
-    //     setLoading(true)
-    //     await (await nftContract.setProfile(nft.id)).wait()
-    //     getProfile(nfts)
-    // }
+    const switchProfile = async (nft) => {
+        setLoading(true)
+        await (await nftContract.setProfile(nft.id)).wait()
+        getProfile(nfts)
+    }
+
+    const updateBio = async(nft) => {
+
+    }
 
     const list = async (nft) => {
         if (!approved) return
@@ -133,10 +118,12 @@ const Profile = ({ marketContract, nftContract }) => {
     }
 
     useEffect(() => {
-        if (!nfts) {
-            //loadMyNFTs();
+        if (nfts.length == 0) {
+            console.log('hit loading')
             loadNfts()
             isApproved()
+            //getProfile()
+
             setLoading(false)
         }
     })
@@ -150,21 +137,25 @@ const Profile = ({ marketContract, nftContract }) => {
     )
     return (
         <div className="mt-4 text-center">
-            {approved ? (<div> Approved</div>)
+            {approved ? (<div></div>)
             :
             (
             <div> 
-                <p>Not Approved</p>
+                <p>Not Approved!!!</p>
                 <Button onClick={() => approve()} variant="primary" size="lg">
-                    Approve
+                    Approve for Marketplace Listing
                 </Button>
             </div>
             )}
 
-            {/* {profile ? (<div className="mb-3"><h3 className="mb-3">{profile.username}</h3>
-                <img className="mb-3" style={{ width: '400px' }} src={profile.avatar} /></div>)
+            {profile ? (<div className="mb-3"><h3 className="mb-3">{profile.name}</h3>
+                <img className="mb-3" style={{ width: '400px' }} src={profile.image} />
+                    <Button onClick={() => approve()} variant="primary" size="lg">
+                        Update Bio
+                    </Button>
+                </div>)
                 :
-                <h4 className="mb-4">No NFT profile, please create one...</h4>}  */}
+                <h4 className="mb-4">No NFT profile, please create one...</h4>} 
 
             {/* <div className="row">
                 <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>
@@ -213,11 +204,18 @@ const Profile = ({ marketContract, nftContract }) => {
 
             <div className="px-5 container">
                 <Row xs={1} md={2} lg={4} className="g-4 py-5">
-                    {nfts2.map((nft, idx) => {
+                    {nfts.map((nft, idx) => {
                         if (nft.id === profile.id) return
                         return (
                             <Col key={idx} className="overflow-hidden">
                                 <Card>
+                                    <Card.Header>
+                                        <div className='d-grid'>
+                                            <Button onClick={() => switchProfile(nft)} variant="primary" size="lg">
+                                                Set Profile
+                                            </Button>
+                                        </div>
+                                    </Card.Header>
                                     <Card.Img variant="top" src={nft.image} />
                                     <Card.Body color="secondary">
                                         <Card.Title>{nft.name}</Card.Title>

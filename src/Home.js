@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Form, Button, Card, ListGroup } from 'react-bootstrap'
+import { Row, Col, Stack, Form, Button, Card, ListGroup } from 'react-bootstrap'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { Buffer } from 'buffer';
 import logo from './logo.png';
@@ -8,8 +8,8 @@ import './css/home.css';
 
 const ipfsClient = require('ipfs-http-client');
 
-const projectId = '2ErURtKagCMdhuyXpeKH3HhuRhb';   // <---------- your Infura Project ID
-const projectSecret = '0270ba21357357b3a2ea8a02302cd117';  // <---------- your Infura Secret
+const projectId = '2ErURtKagCMdhuyXpeKH3HhuRhb';  
+const projectSecret = '0270ba21357357b3a2ea8a02302cd117'; 
 
 // (for security concerns, consider saving these values in .env files)
 
@@ -113,90 +113,94 @@ const Home = ({ resumeContract }) => {
         </div>
     )
     return (
-        <div >
+        <div>
+            <Stack direction="verticle" gap={5}>
+                <Row>
+                    <div className='background'>
+                        <div className="text-center">
+                            <div className='cover-text'>
+                                <h1 className='cover-text'>Welcome to the KyleVerse</h1>
+                            </div>
+                            <div>
 
-            <div className='background'>
-                <div className="text-center">
-                    <h2>Welcome to Home Page</h2>
-                    <Button onClick={mintResume} >
-                        Mint Resume    
-                    </Button> 
-                </div>
-                <br />
-            </div>
-
-
-
-
-            {hasProfile ?
-                (<div className="row">
-                    <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>
-                        <div className="content mx-auto">
-                            <Row className="g-4">
-                                <Form.Control onChange={(e) => setPost(e.target.value)} size="lg" required as="textarea" />
-                                <div className="d-grid px-0">
-                                    {/* <Button onClick={uploadPost} variant="primary" size="lg">
-                                        Post!
-                                    </Button> */}
-                                </div>
-                            </Row>
+                                <Button size="lg" variant="light" onClick={mintResume}>
+                                    Mint Resume    
+                                </Button> 
+                            </div>
                         </div>
-                    </main>
-                </div>)
-                :
-                (<div className="text-center">
-                    <main style={{ padding: "1rem 0" }}>
-                        <h2>Must own an NFT to post</h2>
-                    </main>
-                </div>)
-            }
-
-            <p>&nbsp;</p>
-            <hr />
-            <p className="my-auto">&nbsp;</p>
-            {posts.length > 0 ?
-                posts.map((post, key) => {
-                    return (
-                        <div key={key} className="col-lg-12 my-3 mx-auto" style={{ width: '1000px' }}>
-                            <Card border="primary">
-                                <Card.Header>
-                                    <img
-                                        className='mr-2'
-                                        width='30'
-                                        height='30'
-                                        src={post.author.avatar}
-                                    />
-                                    <small className="ms-2 me-auto d-inline">
-                                        {post.author.username}
-                                    </small>
-                                    <small className="mt-1 float-end d-inline">
-                                        {post.author.address}
-                                    </small>
-                                </Card.Header>
-                                <Card.Body color="secondary">
-                                    <Card.Title>
-                                        {post.content}
-                                    </Card.Title>
-                                </Card.Body>
-                                <Card.Footer className="list-group-item">
-                                    <div className="d-inline mt-auto float-start">Tip Amount: {ethers.utils.formatEther(post.tipAmount)} ETH</div>
-                                    {address === post.author.address || !hasProfile ?
-                                        null : <div className="d-inline float-end">
-                                            {/* <Button onClick={() => tip(post)} className="px-0 py-0 font-size-16" variant="link" size="md">
-                                                Tip for 0.1 ETH
-                                            </Button> */}
-                                        </div>}
-                                </Card.Footer>
-                            </Card>
-                        </div>)
-                })
-                : (
-                    <div className="text-center">
-                        <main style={{ padding: "1rem 0" }}>
-                            <h2>No posts yet</h2>
-                        </main>
+                        <br />
                     </div>
-                )}
+                </Row>
+
+                <div className='text-center'>
+                    <Row>
+                        <Col></Col>
+                        <Col xs={10}>
+                            <h3>Please excuse my lack of style, but the main purpose of this site is to display my professionacy 
+                                with Soldity and React Integration. If you would like more traditional information please feel free to mint 
+                                a free Copy of my resume as an NFT. Or press the Logo on the top Left of the Menu bar to be redirected to my Web2 site, there you can
+                                downlad a copy of my resume PDF as well as view my other projects. Thank you for your time.
+                            </h3>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </div>
+
+                <div className='text-center'>
+                    <Row>
+                        <Col></Col>
+                        <Col xs={10}>
+                            <h3>Sometimes MetaMask has trouble connecting to the Network. You may notice that the pop-up refuses to load the estimated costs for the 
+                                transaction. If you minimize the Pop-up window (hit the yellow minimize button) and re-open it, the transactions details 
+                                should be fixed, and you will be good to go!
+                            </h3>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </div>
+
+                <Row>
+                    <Col></Col>
+                    <Col xs={9}>
+                        <Stack gap={3}>
+                            <ol>
+                                <li>
+                                    <Row>
+                                        <p>
+                                            Please Connect to The Polygon TestNetwork - Mumbai. If you are having issues please read the exerpt above ^
+                                        </p>
+                                    </Row>
+                                </li>
+                            </ol>
+                            <ol>
+                                <li>
+                                    <Row>
+                                        <p>
+                                            Please Connect to The Polygon TestNetwork - Mumbai
+                                        </p>
+                                    </Row>
+                                </li>
+                            </ol>
+                            <ol>
+                                <li>
+                                    <Row>
+                                        <p>
+                                            Please Connect to The Polygon TestNetwork - Mumbai
+                                        </p>
+                                    </Row>
+                                </li>
+                            </ol>
+
+                        </Stack>
+                    </Col>
+                    <Col></Col>
+                </Row>
+
+            </Stack>
+
+
+
+
 
         </div >
     );

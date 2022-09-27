@@ -63,6 +63,7 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
     useEffect(() => {
         console.log('market Load')
         loadMarketplaceItems()
+        setLoading(false)
     }, [])
 
     if (loading) return (
@@ -87,9 +88,9 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
                                         <Card.Img className='card-image' variant="top" src={item.image} />
                                         <Card.Body color="secondary">
                                             <Card.Title>{item.name}</Card.Title>
-                                            <Card.Text>
+                                            {/* <Card.Text>
                                             {item.description}
-                                            </Card.Text>
+                                            </Card.Text> */}
                                         </Card.Body>
                                         <Card.Footer>
                                             <div>

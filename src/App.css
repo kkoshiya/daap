@@ -19,6 +19,24 @@
 
 
 .background {
-  background-image: url('./images/space.png')
+  background-image: url('./images/space.png');
+  background-size: cover;
+  height: 300px;
+}
+
+.cover-text {
+  padding-top: 3%;
+  padding-bottom: 1%;
+  color: white;
+}
+
+.mint-button {
+  margin-top: 3%;
+  
+  
+}
+
+.directions {
+  padding-top: 5%;
 }
 
