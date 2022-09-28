@@ -19,6 +19,21 @@ const Blog = () => {
                 </Row>
             </Container>
 
+            <div>
+                <Row>
+                    <Col>
+                        <div>
+                            <a target = "_blank" href="https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ">
+                                <img src='' alt="" />
+                                <div>
+                                    Litterally first blog post is me Resume
+                                </div>
+                            </a>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+
             <div className='text-center'>
                 <div>
                     <a target = "_blank" href="https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ">Litterally first blog post is me Resume</a>

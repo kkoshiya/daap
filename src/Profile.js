@@ -3,7 +3,10 @@ import { ethers } from "ethers"
 import { Row, Form, Button, Card, ListGroup, Col } from 'react-bootstrap'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { Buffer } from 'buffer';
-import { marketAddress } from './contractsData/market-address.json'
+import { marketAddress } from './contractsData/market-address.json';
+import './css/profile.css'
+
+
 //const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 const ipfsClient = require('ipfs-http-client');
 
@@ -141,66 +144,36 @@ const Profile = ({ marketContract, nftContract }) => {
             :
             (
             <div> 
+                <br />
                 <p>Not Approved!!!</p>
                 <Button onClick={() => approve()} variant="primary" size="lg">
                     Approve for Marketplace Listing
                 </Button>
+                <p>&nbsp;</p>
+                <hr />
+                <p className="my-auto">&nbsp;</p>
+
             </div>
             )}
 
-            {profile ? (<div className="mb-3"><h3 className="mb-3">{profile.name}</h3>
-                <img className="mb-3" style={{ width: '400px' }} src={profile.image} />
-                    <Button onClick={() => approve()} variant="primary" size="lg">
-                        Update Bio
-                    </Button>
+            {profile ? (
+                <div className="mb-3">
+                    <h3 className="mb-3">{profile.name}</h3>
+                    <img className="mb-3" style={{ width: '400px' }} src={profile.image} />
+                    
+                    <div>
+                        <Button onClick={() => approve()} variant="primary" size="lg">
+                            Update Bio
+                        </Button>
+                    </div>
                 </div>)
                 :
                 <h4 className="mb-4">No NFT profile, please create one...</h4>} 
 
-            {/* <div className="row">
-                <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>
-                    <div className="content mx-auto">
-                        <Row className="g-4">
-                            <Form.Control
-                                type="file"
-                                required
-                                name="file"
-                                onChange={uploadToIPFS}
-                            />
-                            <Form.Control onChange={(e) => setUsername(e.target.value)} size="lg" required type="text" placeholder="Username" />
-                            <div className="d-grid px-0">
-                                <Button onClick={mintProfile} variant="primary" size="lg">
-                                    Mint NFT Profile
-                                </Button>
-                            </div>
-                        </Row>
-                    </div>
-                </main>
-            </div> */}
-            {/* <div className="px-5 container">
-                <Row xs={1} md={2} lg={4} className="g-4 py-5">
-                    {nfts.map((nft, idx) => {
-                        if (nft.id === profile.id) return
-                        return (
-                            <Col key={idx} className="overflow-hidden">
-                                <Card>
-                                    <Card.Img variant="top" src={nft.avatar} />
-                                    <Card.Body color="secondary">
-                                        <Card.Title>{nft.username}</Card.Title>
-                                    </Card.Body>
-                                    <Card.Footer>
-                                        <div className='d-grid'>
-                                            <Button onClick={() => switchProfile(nft)} variant="primary" size="lg">
-                                                Set as Profile
-                                            </Button>
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                        )
-                    })}
-                </Row>
-            </div> */}
+            <p>&nbsp;</p>
+            <hr />
+            <p className="my-auto">&nbsp;</p>
+
 
             <div className="px-5 container">
                 <Row xs={1} md={2} lg={4} className="g-4 py-5">
@@ -216,7 +189,7 @@ const Profile = ({ marketContract, nftContract }) => {
                                             </Button>
                                         </div>
                                     </Card.Header>
-                                    <Card.Img variant="top" src={nft.image} />
+                                    <Card.Img className='card-image' variant="top" src={nft.image} />
                                     <Card.Body color="secondary">
                                         <Card.Title>{nft.name}</Card.Title>
                                     </Card.Body>

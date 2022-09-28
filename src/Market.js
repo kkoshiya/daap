@@ -77,41 +77,49 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
     )
 
     return (
-        <div className="container-fluid mt-5">
+        <div>
             <div className='flex justify-center'>
-                {items.length > 0 ?
-                    <div className='px-5 container'>
-                        <Row xs={1} md={2} lg={4} className="g-4 py-5" >
-                            {items.map((item, idx) => (
-                                <Col key={idx} className="overflow-hidden">
-                                    <Card className='card'>
-                                        <Card.Img className='card-image' variant="top" src={item.image} />
-                                        <Card.Body color="secondary">
-                                            <Card.Title>{item.name}</Card.Title>
-                                            {/* <Card.Text>
-                                            {item.description}
-                                            </Card.Text> */}
-                                        </Card.Body>
-                                        <Card.Footer>
-                                            <div>
-                                                <div className='d-grid'>
-                                                    <Button onClick={() => buyMarketItem(item)} variant="primary" size="lg">
-                                                        Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
-                                                    </Button>
+                <div className='market-background'>
+                    <br />
+                    <br />
+                   <div className='text-center'>
+                        <h1>Welcome to the Market</h1>
+                   </div>
+                    {items.length > 0 ?
+                        <div className='px-5 container'>
+                            <Row xs={1} md={2} lg={4} className="g-4 py-5" >
+                                {items.map((item, idx) => (
+                                    <Col key={idx} className="overflow-hidden">
+                                        <Card className='card'>
+                                            <Card.Img className='card-image' variant="top" src={item.image} />
+                                            <Card.Body color="secondary">
+                                                <Card.Title>{item.name}</Card.Title>
+                                                {/* <Card.Text>
+                                                {item.description}
+                                                </Card.Text> */}
+                                            </Card.Body>
+                                            <Card.Footer>
+                                                <div>
+                                                    <div className='d-grid'>
+                                                        <Button onClick={() => buyMarketItem(item)} variant="primary" size="lg">
+                                                            Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
+                                                        </Button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Card.Footer>
-                                    </Card>
-                                </Col>
-                            ))}                          
-                        </Row>
-                    </div>
-                : (
-                    <main>
-                        <h2>No listed assets</h2>
-                    </main>
+                                            </Card.Footer>
+                                        </Card>
+                                    </Col>
+                                ))}                          
+                            </Row>
+                        </div>
+                    : (
+                        <main>
+                            <br />
+                            <h2>No listed assets</h2>
+                        </main>
 
-                )}
+                    )}
+                </div>
 
 
             </div>
@@ -122,11 +130,11 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
 
 
 
-            <p>&nbsp;</p>
+            {/* <p>&nbsp;</p>
             <hr />
             <p className="my-auto">&nbsp;</p>
             <p>By: Kyle Koshiyama</p>
-            <p>Polygon Donations: 0xcE716032dFe9d5BB840568171F541A6A046bBf90</p>
+            <p>Polygon Donations: 0xcE716032dFe9d5BB840568171F541A6A046bBf90</p> */}
 
 
         </div >

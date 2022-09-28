@@ -94,13 +94,6 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
         setLoading(false)
     })
 
-    const mintResume = async () => {
-        await (await resumeContract.mint("https://ipfs.io/ipfs/QmThCT36VDMHWnzu34UbpNynfbB6ZfTrUfNmrYaco9BzoZ")).wait()
-    }
-
-    const mintNFT = async (image) => {
-        await (await resumeContract.mint(image)).wait()
-    }
 
     if (loading) return (
         <div className='text-center'>
@@ -111,53 +104,59 @@ const Room = ({ contract, resumeContract, marketContract, nftContract }) => {
         </div>
     )
     return (
-        <div className="container-fluid mt-5">
-            
-            <div className='text-center'>
-                <h1 >Welcome to the Mint Station</h1>
-                <br />
+        <div className="">
+            <div className='market-background'>
+                <br /><br />
+                <div className='text-center'>
+                    <h1 >Welcome to the Mint Station</h1>
+                    <br />
+                </div>
+
+
+
+                <div className="row">
+                    <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>
+                        <div className="content mx-auto">
+                            <Row className="g-4">
+                                <Form.Control
+                                    type="file"
+                                    required
+                                    name="file"
+                                    onChange={uploadToIPFS}
+                                />
+                                <Form.Control onChange={(e) => setName(e.target.value)} size="lg" required type="text" placeholder="Name" />
+                                <Form.Control onChange={(e) => setDescription(e.target.value)} size="lg" required as="textarea" placeholder="Description" />
+                                {/* <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in ETH" /> */}
+                                <div className="d-grid px-0">
+                                    <Button onClick={simpleMint} variant="primary" size="lg">
+                                        Create NFT 
+                                    </Button>
+                                </div>
+                            </Row>
+                        </div>
+                    </main>
+                </div>
+
+
+
+                <p>&nbsp;</p>
+                <hr />
+                <p className="my-auto">&nbsp;</p>
+                <div>
+                <div className='text-center'>
+                    <h5>
+                        For some reason sometimes MetaMask get's stuck when you call press the button. If you 
+                        minimize the pop up, and reopen it, it usually fixes the bug.
+                    </h5>
+                    <h5>
+                        Once you confirm the transaction, head over to the Profile Page, there you should be able to see your newly created NFT.
+                        Also these NFTs follow the OpenSea Standard so if you would like to create and upload your own art, you have the option to 
+                        sell them on most standard markets. 
+                    </h5>
+                    <br />
+                </div>
+                </div>
             </div>
-
-
-
-            <div className="row">
-                <main role="main" className="col-lg-12 mx-auto" style={{ maxWidth: '1000px' }}>
-                    <div className="content mx-auto">
-                        <Row className="g-4">
-                            <Form.Control
-                                type="file"
-                                required
-                                name="file"
-                                onChange={uploadToIPFS}
-                            />
-                            <Form.Control onChange={(e) => setName(e.target.value)} size="lg" required type="text" placeholder="Name" />
-                            <Form.Control onChange={(e) => setDescription(e.target.value)} size="lg" required as="textarea" placeholder="Description" />
-                            {/* <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in ETH" /> */}
-                            <div className="d-grid px-0">
-                                <Button onClick={simpleMint} variant="primary" size="lg">
-                                    Create NFT 
-                                </Button>
-                            </div>
-                        </Row>
-                    </div>
-                </main>
-            </div>
-
-
-
-            <p>&nbsp;</p>
-            <hr />
-            <p className="my-auto">&nbsp;</p>
-            <div>
-            <div className='text-center'>
-                <h5>
-                    For some reason sometimes MetaMask get's stuck when you call press the button. If you 
-                    minimize the pop up, and reopen it, it usually fixes the bug.
-                </h5>
-                <br />
-            </div>
-            </div>
-
         </div >
     );
 }

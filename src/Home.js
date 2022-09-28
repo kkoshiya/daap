@@ -159,45 +159,57 @@ const Home = ({ resumeContract }) => {
                     </Row>
                 </div>
 
+                <p>&nbsp;</p>
+                <hr />
+
+                <div className='text-center'>
+                    <h2>Instructions</h2>
+                </div>
+
+
                 <Row>
                     <Col></Col>
                     <Col xs={9}>
-                        <Stack gap={3}>
-                            <ol>
-                                <li>
-                                    <Row>
-                                        <p>
-                                            Please Connect to The Polygon TestNetwork - Mumbai. If you are having issues please read the exerpt above ^
-                                        </p>
-                                    </Row>
-                                </li>
-                            </ol>
-                            <ol>
-                                <li>
-                                    <Row>
-                                        <p>
-                                            Please Connect to The Polygon TestNetwork - Mumbai
-                                        </p>
-                                    </Row>
-                                </li>
-                            </ol>
-                            <ol>
-                                <li>
-                                    <Row>
-                                        <p>
-                                            Please Connect to The Polygon TestNetwork - Mumbai
-                                        </p>
-                                    </Row>
-                                </li>
-                            </ol>
+                        <ol>
+                            <Stack gap={3}>
+                                <Row>
+                                    <li>
+                                         Please Connect to The Polygon TestNetwork - Mumbai. If you are having issues please read the exerpt above ^
+                                    </li>
+                                </Row>
+                                <Row>
+                                    <li>
+                                        Head over to the Mint tab and mint your own NFT. Upload and create as many as you would like. View them on OpenSea if you like
+                                    </li>
+                                </Row>
+                                <Row>
+                                    <li>
+                                        Go ahead and check out the profile tab next, there you can change your profile and list your creations on the market.
+                                    </li>
+                                </Row>
+                                <Row>
+                                    <li>
+                                        Please feel free to view your newly listed NFT on the market, or check out if there is are any assets that you would like to purchase
+                                    </li>
+                                </Row>
 
-                        </Stack>
+
+                            </Stack>
+                        </ol>
+
                     </Col>
                     <Col></Col>
                 </Row>
 
             </Stack>
 
+
+
+            <div className='footer'>
+                <p>&nbsp;</p>
+                <hr />
+                Thank you for your time
+            </div>
 
 
 

@@ -170,6 +170,21 @@ const Land = ({ nftContract, landContract }) => {
                 )}
             </div>
 
+            <div>
+                {land.length == 0 ? (
+                <div>
+                    <h1>Mint free land since you don't have one</h1>
+                    <Button onClick={() => mintLand()} variant="primary" size="lg">
+                        Mint Land
+                    </Button>
+                </div>)
+                :
+                (
+                <div> 
+                </div>
+                )}
+            </div>
+
 
             <div> 
                 <Row xs={1} md={2} lg={4} className="g-4 py-5">
