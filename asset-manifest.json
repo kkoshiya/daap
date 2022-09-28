@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/daap/static/css/main.20ea94a7.css",
-    "main.js": "/daap/static/js/main.32dd19ea.js",
+    "main.css": "/daap/static/css/main.ec7026a0.css",
+    "main.js": "/daap/static/js/main.ec6fd843.js",
     "static/js/787.8ecd5289.chunk.js": "/daap/static/js/787.8ecd5289.chunk.js",
     "static/media/space.png": "/daap/static/media/space.e75e0db51e4860384400.png",
+    "static/media/pink.jpeg": "/daap/static/media/pink.fa4386071a597547c38d.jpeg",
     "static/media/logo.png": "/daap/static/media/logo.2189adfb9c8a1c7a804f.png",
     "index.html": "/daap/index.html",
-    "main.20ea94a7.css.map": "/daap/static/css/main.20ea94a7.css.map",
-    "main.32dd19ea.js.map": "/daap/static/js/main.32dd19ea.js.map",
+    "main.ec7026a0.css.map": "/daap/static/css/main.ec7026a0.css.map",
+    "main.ec6fd843.js.map": "/daap/static/js/main.ec6fd843.js.map",
     "787.8ecd5289.chunk.js.map": "/daap/static/js/787.8ecd5289.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.20ea94a7.css",
-    "static/js/main.32dd19ea.js"
+    "static/css/main.ec7026a0.css",
+    "static/js/main.ec6fd843.js"
   ]
 }
