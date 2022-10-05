@@ -38,7 +38,8 @@ const Profile = ({ marketContract, nftContract }) => {
     const [price, setPrice] = useState(null);
     const [approved, setApproval] = useState(false);
     const [account, setAccount] = useState(null);
-    const [bio, setbio] = useState('');
+    const [bio, setBio] = useState('default');
+    const [newBio, saveBio] = useState('');
 
 
     const loadNfts = async () => {
@@ -60,20 +61,25 @@ const Profile = ({ marketContract, nftContract }) => {
         }))
         await setNfts(nfts);
         const profileId = await nftContract.profiles(accounts[0])
-        const profile = nfts.find((i) => i.id.toString() === profileId.toString())
+        const profile = nfts.find((i) => i.id.toString() === profileId.toString());
+        //console.log(profile.id);
         setProfile(profile);
+        const bioText = await nftContract.bios(profile.id);
+        setBio(bioText); 
     }
 
-    const getProfile = async () => {
-        //const address = await nftContract.signer.getAddress()
-        console.log('trying to get profile')
-        let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        //setAccount(accounts[0]);
-        const id = await nftContract.profiles(accounts[0])
-        const profile = nfts.find((i) => i.id.toString() === id.toString())
-        setProfile(profile);
-        //console.log(profile.name)
-    }
+    // const getProfile = async () => {
+    //     //const address = await nftContract.signer.getAddress()
+    //     console.log('trying to get profile')
+    //     let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    //     //setAccount(accounts[0]);
+    //     const id = await nftContract.profiles(accounts[0])
+    //     const profile = nfts.find((i) => i.id.toString() === id.toString())
+    //     setProfile(profile);
+    //     const bioText = await nftContract.bios(profile);
+    //     setBio() 
+    //     //console.log(profile.name)
+    // }
 
 
 
@@ -91,13 +97,15 @@ const Profile = ({ marketContract, nftContract }) => {
     }
 
     const switchProfile = async (nft) => {
-        setLoading(true)
-        await (await nftContract.setProfile(nft.id)).wait()
-        getProfile(nfts)
+        setLoading(true);
+        await (await nftContract.setProfile(nft.id)).wait();
+        //getProfile(nfts)
+        loadNfts();
     }
 
-    const updateBio = async(nft) => {
-
+    const updateBio = async(id) => {
+        setLoading(true)
+        await (await nftContract.changeBio(profile.id, newBio)).wait();
     }
 
     const list = async (nft) => {
@@ -122,12 +130,13 @@ const Profile = ({ marketContract, nftContract }) => {
 
     useEffect(() => {
         if (nfts.length == 0) {
-            console.log('hit loading')
+            //console.log('hit loading')
             loadNfts()
             isApproved()
             //getProfile()
 
-            setLoading(false)
+            console.log('why does this keep hitting')
+            setLoading(false);
         }
     })
     if (loading) return (
@@ -160,9 +169,14 @@ const Profile = ({ marketContract, nftContract }) => {
                 <div className="mb-3">
                     <h3 className="mb-3">{profile.name}</h3>
                     <img className="mb-3" style={{ width: '400px' }} src={profile.image} />
-                    
                     <div>
-                        <Button onClick={() => approve()} variant="primary" size="lg">
+                        <h3>Bio</h3>
+                        <p>{bio}</p>
+                    </div>
+
+                    <div>
+                        <Form.Control onChange={(e) => saveBio(e.target.value)} size="lg" placeholder="Write in Bio Here" />
+                        <Button onClick={() => updateBio(profile)} variant="primary" size="lg">
                             Update Bio
                         </Button>
                     </div>

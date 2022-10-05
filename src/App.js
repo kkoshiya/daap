@@ -26,7 +26,8 @@ import Profile from './Profile.js'
 import Room from './Room.js'
 import Market from './Market.js'
 import Blog from './Blog';
-import Land from './Land'
+import Land from './Land';
+import Chat from './Chat';
 import './App.css';
 
 function App() {
@@ -95,11 +96,12 @@ function App() {
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
                   <Nav.Link as={Link} to="/">Home</Nav.Link>
-                  <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                   <Nav.Link as={Link} to="/room">Mint</Nav.Link>
+                  <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                   <Nav.Link as={Link} to="/market">Market</Nav.Link>
-                  <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
                   <Nav.Link as={Link} to="/land">Land</Nav.Link>
+                  <Nav.Link as={Link} to="/chat">Chat</Nav.Link>
+                  <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
                 </Nav>
                 <Nav>
                   {account ? (
@@ -142,11 +144,14 @@ function App() {
               <Route path="/market" element={
                 <Market resumeContract={resumeContract} marketContract={marketContract} nftContract={nftContract} />
               } />
-              <Route path="/Blog" element={
-                <Blog  />
-              } />
               <Route path="/land" element={
                 <Land nftContract={nftContract} landContract={landContract} />
+              } />
+              <Route path="/chat" element={
+                <Chat nftContract={nftContract} />
+              } />
+              <Route path="/Blog" element={
+                <Blog  />
               } />
             </Routes>
           )}
