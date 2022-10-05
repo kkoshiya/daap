@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/daap/static/css/main.ec7026a0.css",
-    "main.js": "/daap/static/js/main.ec6fd843.js",
+    "main.css": "/daap/static/css/main.7fa67ad2.css",
+    "main.js": "/daap/static/js/main.5bffe219.js",
     "static/js/787.8ecd5289.chunk.js": "/daap/static/js/787.8ecd5289.chunk.js",
+    "static/media/moon.gif": "/daap/static/media/moon.46bd07ea9ba1be0542e4.gif",
     "static/media/space.png": "/daap/static/media/space.e75e0db51e4860384400.png",
     "static/media/pink.jpeg": "/daap/static/media/pink.fa4386071a597547c38d.jpeg",
     "static/media/logo.png": "/daap/static/media/logo.2189adfb9c8a1c7a804f.png",
     "index.html": "/daap/index.html",
-    "main.ec7026a0.css.map": "/daap/static/css/main.ec7026a0.css.map",
-    "main.ec6fd843.js.map": "/daap/static/js/main.ec6fd843.js.map",
+    "main.7fa67ad2.css.map": "/daap/static/css/main.7fa67ad2.css.map",
+    "main.5bffe219.js.map": "/daap/static/js/main.5bffe219.js.map",
     "787.8ecd5289.chunk.js.map": "/daap/static/js/787.8ecd5289.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ec7026a0.css",
-    "static/js/main.ec6fd843.js"
+    "static/css/main.7fa67ad2.css",
+    "static/js/main.5bffe219.js"
   ]
 }
