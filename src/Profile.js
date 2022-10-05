@@ -62,7 +62,6 @@ const Profile = ({ marketContract, nftContract }) => {
         await setNfts(nfts);
         const profileId = await nftContract.profiles(accounts[0])
         const profile = nfts.find((i) => i.id.toString() === profileId.toString());
-        //console.log(profile.id);
         setProfile(profile);
         const bioText = await nftContract.bios(profile.id);
         setBio(bioText); 
@@ -209,7 +208,7 @@ const Profile = ({ marketContract, nftContract }) => {
                                     </Card.Body>
                                     <Card.Footer>
                                         <div className='d-grid'>
-                                            <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in ETH" />
+                                            <Form.Control onChange={(e) => setPrice(e.target.value)} size="lg" required type="number" placeholder="Price in Matic" />
                                             <Button onClick={() => list(nft)} variant="primary" size="lg">
                                                 List on Market
                                             </Button>

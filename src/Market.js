@@ -102,7 +102,7 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
                                                 <div>
                                                     <div className='d-grid'>
                                                         <Button onClick={() => buyMarketItem(item)} variant="primary" size="lg">
-                                                            Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
+                                                            Buy for {ethers.utils.formatEther(item.totalPrice)} Matic
                                                         </Button>
                                                     </div>
                                                 </div>

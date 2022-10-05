@@ -4,29 +4,30 @@ import { Row, Col, Form, Button, Card, ListGroup, Container } from 'react-bootst
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { Buffer } from 'buffer';
 import './css/land.css';
-import landImage from './images/space.png';
+import landImage from './images/moon.gif';
 
-const ipfsClient = require('ipfs-http-client');
+// const ipfsClient = require('ipfs-http-client');
 
-const projectId = '2ErURtKagCMdhuyXpeKH3HhuRhb';   // <---------- your Infura Project ID
+// const projectId = '2ErURtKagCMdhuyXpeKH3HhuRhb';   // <---------- your Infura Project ID
 
-const projectSecret = '0270ba21357357b3a2ea8a02302cd117';  // <---------- your Infura Secret
-// (for security concerns, consider saving these values in .env files)
+// const projectSecret = '0270ba21357357b3a2ea8a02302cd117';  // <---------- your Infura Secret
+// // (for security concerns, consider saving these values in .env files)
 
-const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+// const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
 
-const client = ipfsClient.create({
-    host: 'infura-ipfs.io',
-    port: 5001,
-    protocol: 'https',
-    headers: {
-        authorization: auth,
-    },
-});
+// const client = ipfsClient.create({
+//     host: 'infura-ipfs.io',
+//     port: 5001,
+//     protocol: 'https',
+//     headers: {
+//         authorization: auth,
+//     },
+// });
 
 
 const Land = ({ nftContract, landContract }) => {
-    const [hasProfile, setHasProfile] = useState(false)
+    const [hasProfile, setHasProfile] = useState(false);
+    const [profile, setProfile] = useState('')
     const [address, setAddress] = useState('')
     const [loading, setLoading] = useState(true)
     const [imageLink, setImage] = useState('') 
@@ -36,7 +37,7 @@ const Land = ({ nftContract, landContract }) => {
     const [approved, setApproval] = useState(false);
     const [account, setAccount] = useState(null);
     const [stakedNft, setStakedNft] = useState({image: null});
-    //const [landImage, setLandImage] = useState(landImage)
+    const [duration, setDuration] = useState('');
 
     const isApproved = async () => {
         let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -55,11 +56,11 @@ const Land = ({ nftContract, landContract }) => {
         const uri = await landContract.tokenURI(id);
         const response = await fetch(uri);
         const metadata = await response.json();
-        const l = {
+        const land = {
             id: id,
             image: metadata.image
         }
-        setLand(l)        
+        setLand(land);
     }
 
     const loadNfts = async () => {
@@ -101,6 +102,9 @@ const Land = ({ nftContract, landContract }) => {
             image: metadata.image
         }
         setStakedNft(data);
+        let duration = await landContract.duration(land.id);
+        duration = duration.toString();
+        setDuration(duration);
     }
 
 
@@ -110,13 +114,15 @@ const Land = ({ nftContract, landContract }) => {
 
 
     useEffect(() => {
-        loadLand();
-        loadNfts();
-        isApproved();
-        getStaked();
-        setLoading(false);
-
+        if (nfts.length == 0) {
+            isApproved();
+            loadLand();
+            loadNfts();
+            getStaked();
+            setLoading(false);
+        }
     })
+
 
     if (loading) return (
         <div>
@@ -162,7 +168,6 @@ const Land = ({ nftContract, landContract }) => {
                         <Col>
                             <Row>
                                 <div>
-                                    {/* <img src={land.image} /> */}
                                     <img className='land-img' src={landImage} />
                                 </div>
                             </Row>
@@ -192,8 +197,13 @@ const Land = ({ nftContract, landContract }) => {
                                             Unstake
                                         </Button>
                                     </div> 
+                                    <div>
+
+                                    </div>
                                 </Col>
-                                <Col></Col>
+                                <Col>
+                                    <div>Staking Time: {duration} seconds</div>
+                                </Col>
                             </Row>
                         </div>
 
@@ -203,11 +213,6 @@ const Land = ({ nftContract, landContract }) => {
                     <div> 
                         <br />
                         <h1>Looks Like you aren't staking</h1>
-                        {/* <div className='d-grid'>
-                            <Button onClick={() => getStaked()} variant="primary" size="lg">
-                                checkStaked?
-                            </Button>
-                        </div>    */}
                     </div>
                     )}
                 </div>
