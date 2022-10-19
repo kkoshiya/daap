@@ -81,6 +81,9 @@ function App() {
     setLandContract(landContract)
     setLoading(false)
   }
+
+
+
   return (
     <HashRouter>
       <div className="App">
@@ -129,6 +132,7 @@ function App() {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
               <Spinner animation="border" style={{ display: 'flex' }} />
               <p className='mx-3 my-0'>Awaiting Metamask Connection...</p>
+              <div>Please Connect to the Mumbai Network (Polygon TestNet)</div>
             </div>
           ) : (
             <Routes>

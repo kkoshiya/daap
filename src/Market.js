@@ -115,7 +115,7 @@ const Market = ({ contract, resumeContract, marketContract, nftContract }) => {
                     : (
                         <main>
                             <br />
-                            <h2>No listed assets</h2>
+                            <h2>Loading (might take a few seconds to load)</h2>
                         </main>
 
                     )}

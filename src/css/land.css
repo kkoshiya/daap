@@ -1,6 +1,7 @@
 .staked-image {
     height: 100px;
-    width: 100px
+    width: 100px;
+    border-radius: 50%;
 }
 
 .landPage {
@@ -21,6 +22,7 @@
     height: 450px;
     width: 1000px;
     margin-bottom: 2%;
+    
 }
 
 

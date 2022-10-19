@@ -197,12 +197,9 @@ const Land = ({ nftContract, landContract }) => {
                                             Unstake
                                         </Button>
                                     </div> 
-                                    <div>
-
-                                    </div>
                                 </Col>
-                                <Col>
-                                    <div>Staking Time: {duration} seconds</div>
+                                <Col sm={5}>
+                                    <div>Staking Time: {duration / 86400} days</div>
                                 </Col>
                             </Row>
                         </div>
@@ -213,6 +210,11 @@ const Land = ({ nftContract, landContract }) => {
                     <div> 
                         <br />
                         <h1>Looks Like you aren't staking</h1>
+                        <div className>
+                            <Button onClick={() => getStaked()} variant="primary" size="lg">
+                                check Staked
+                            </Button>
+                        </div> 
                     </div>
                     )}
                 </div>
