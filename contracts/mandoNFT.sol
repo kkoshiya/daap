@@ -46,7 +46,7 @@ contract Mando is ERC721URIStorage, ReentrancyGuard{
     }
 
 
-       function _beforeTokenTransfer(address from, address to, uint256) pure override internal {
+    function _beforeTokenTransfer(address from, address to, uint256) pure override internal {
         require(from == address(0) || to == address(0), "Not allowed to transfer token");
     }
 
@@ -135,8 +135,6 @@ contract BountyContract is Mando {
         history.openBounties ++;
         postId ++;
         bounties[postId] = Bounty(postId,_name,_creatorProtocol,_reward,msg.sender,true, new address[](0),address(0),block.timestamp, block.timestamp);
-
-        // Didn't understand what you mean by this
         // uint reward = _reward/100; 
 
         // bounties[postId] = Bounty(postId,_name,_creatorProtocol,reward,payable(msg.sender),true, payable(msg.sender));
@@ -199,7 +197,5 @@ contract BountyContract is Mando {
         delete bounties[_postId];
 
     }
-
-
 
 }
